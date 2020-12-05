@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using SWaverLib;
 
 namespace SWaverTests
 {
@@ -12,7 +13,8 @@ namespace SWaverTests
         [Test]
         public void Test1()
         {
-            Assert.Pass();
+            var fading = FiderCalculation.FiderExtinction(10, 1);
+            Assert.AreEqual(0.1, fading);
         }
     }
 }

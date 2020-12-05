@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWaverLib;
+using System;
 
 namespace SWAverCLI
 {
@@ -6,7 +7,8 @@ namespace SWAverCLI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine(FiderCalculation.FiderExtinction(2, 0.01));
+            Console.ReadLine();
         }
     }
 }
