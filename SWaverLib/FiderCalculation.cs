@@ -64,6 +64,9 @@ namespace SWaverLib
         {
             return (transmitterEfficiency * transmitterPower * transmitterDirectionalFactor * receiverDirectionalFactor * receiverEfficiency * Math.Pow(waveLength, 2))/(Math.Pow((4 * Math.PI * radius), 2));
         }
-        public static double CalculateTransmittingRange
+        public static double CalculateTransmittingRange(double receiverPower, double radius, double receiverSensivity)
+        {
+            return Math.Sqrt(receiverPower/(Math.Pow(radius, 2) * receiverSensivity));
+        }
     }
 }

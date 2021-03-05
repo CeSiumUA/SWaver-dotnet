@@ -5,6 +5,8 @@ namespace SWaverTests
 {
     public class Tests
     {
+        private double frequency;
+        private double transmitterPower;
         [SetUp]
         public void Setup()
         {
