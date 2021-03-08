@@ -21,5 +21,10 @@ namespace SWaverLib
         {
             return SpeedOfLight / frequency;
         }
+
+        public static double GetReceiverSensivity(double value)
+        {
+            return Math.Pow(10, value / 10) - 3;
+        }
     }
 }
