@@ -1,25 +1,18 @@
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SWaverLib;
 
 namespace SWaverTests
 {
-    public class Tests
+    [TestClass]
+    public class LabTest
     {
-        private double frequency;
-        private double transmitterPower;
-        [SetUp]
-        public void Setup()
-        {
-        }
-
-        [Test]
-        public void Test1()
+        [TestMethod]
+        public void FadingCalculatorTest()
         {
             var fading = FiderCalculation.FiderExtinction(10, 1);
             Assert.AreEqual(0.1, fading);
         }
-
-        [Test]
+        [TestMethod]
         public void TransformToSystemInternational_Test()
         {
             MathObject mathObject = new MathObject(100, MetricPrefixes.k, UnitsOfMeasurement.Meter);
