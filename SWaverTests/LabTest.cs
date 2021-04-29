@@ -13,11 +13,12 @@ namespace SWaverTests
             Assert.AreEqual(0.1, fading);
         }
         [TestMethod]
-        public void TransformToSystemInternational_Test()
+        [DataRow(100, MetricPrefixes.M, UnitsOfMeasurement.Meter, 100000000)]
+        public void TransformToSystemInternational_Test(double value, MetricPrefixes prefix, UnitsOfMeasurement uom, double expectedValue)
         {
-            MathObject mathObject = new MathObject(100, MetricPrefixes.k, UnitsOfMeasurement.Meter);
+            MathObject mathObject = new MathObject(value, prefix, uom);
             var rawValue = mathObject.TransformToSystemInternational();
-            Assert.AreEqual(rawValue, 100000);
+            Assert.AreEqual(expectedValue, rawValue);
         }
     }
 }

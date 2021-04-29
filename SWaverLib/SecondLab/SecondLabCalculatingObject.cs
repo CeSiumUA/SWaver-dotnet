@@ -8,18 +8,32 @@ namespace SWaverLib.SecondLab
     public class SecondLabCalculatingObject
     {
         private TraceLength traceLength;
-        private WaveLength length1;
-        private WaveLength length2;
+        private WaveLength waveLength;
         private ThetaDegrees thetaDegrees;
         private RelativeTraceLength relativeTraceLength;
-        public SecondLabCalculatingObject(TraceLength traceLength, WaveLength length1, WaveLength length2,
-            ThetaDegrees thetaDegrees, RelativeTraceLength relativeTraceLength)
+        private DiafragmRadius diafragmRadius;
+        private bool isDirected;
+        private bool reverseRelativeDistance;
+        public SecondLabCalculatingObject(TraceLength traceLength, WaveLength waveLength,
+            ThetaDegrees thetaDegrees, RelativeTraceLength relativeTraceLength, DiafragmRadius diafragmRadius, bool isDirected, bool reverseRelativeDistance)
         {
             this.traceLength = traceLength;
-            this.length1 = length1;
-            this.length2 = length2;
+            this.waveLength = waveLength;
             this.thetaDegrees = thetaDegrees;
             this.relativeTraceLength = relativeTraceLength;
+            this.isDirected = isDirected;
+            this.diafragmRadius = diafragmRadius;
+            this.reverseRelativeDistance = reverseRelativeDistance;
+        }
+
+        public MathObject CalculateNFresnelZone(int zoneNumber)
+        {
+            MathObject zoneNumberMath = new MathObject(zoneNumber, MetricPrefixes.One, UnitsOfMeasurement.Units);
+            var resultObject =
+                (zoneNumberMath * waveLength * relativeTraceLength * traceLength *
+                 (traceLength - (relativeTraceLength * traceLength))) / traceLength;
+            MathObject nFresnelZoneRadius = new MathObject(Math.Sqrt(resultObject.Value), MetricPrefixes.One, UnitsOfMeasurement.Meter);
+            return nFresnelZoneRadius;
         }
     }
 }
