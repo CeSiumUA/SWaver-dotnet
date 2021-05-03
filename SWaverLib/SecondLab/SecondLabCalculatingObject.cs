@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SWaverLib.SecondLab.BasicParameters;
+using SWaverLib.Utils;
 
 namespace SWaverLib.SecondLab
 {

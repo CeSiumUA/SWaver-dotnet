@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SWaverLib;
 using SWaverLib.SecondLab;
 using SWaverLib.SecondLab.BasicParameters;
+using SWaverLib.Utils;
 
 namespace SWaverTests
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SWaverLib.SecondLab.BasicParameters
+namespace SWaverLib.Utils
 {
     public class WaveLength : MathObject
     {

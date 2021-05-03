@@ -97,6 +97,7 @@ namespace SWaverLib
         Units,
         Degree,
         Percents,
+        SiemensOnMeter,
         Other
     }
 }
