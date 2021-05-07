@@ -68,5 +68,41 @@ namespace SWaverLib
             var c = new MathObject(aOperator / bOperator, MetricPrefixes.One);
             return c;
         }
+
+        public static bool operator <(MathObject a, MathObject b)
+        {
+            var aOperator = a.TransformToSystemInternational();
+            var bOperator = b.TransformToSystemInternational();
+
+            return aOperator < bOperator;
+        }
+
+        public static bool operator >(MathObject a, MathObject b)
+        {
+            var aOperator = a.TransformToSystemInternational();
+            var bOperator = b.TransformToSystemInternational();
+
+            return aOperator > bOperator;
+        }
+        public static bool operator <=(MathObject a, MathObject b)
+        {
+            var aOperator = a.TransformToSystemInternational();
+            var bOperator = b.TransformToSystemInternational();
+
+            return aOperator <= bOperator;
+        }
+
+        public static bool operator >=(MathObject a, MathObject b)
+        {
+            var aOperator = a.TransformToSystemInternational();
+            var bOperator = b.TransformToSystemInternational();
+
+            return aOperator >= bOperator;
+        }
+
+        public static implicit operator double(MathObject mo) => mo.TransformToSystemInternational();
+
+        public static explicit operator MathObject(double digit) =>
+            new MathObject(digit, MetricPrefixes.One, UnitsOfMeasurement.Units);
     }
 }

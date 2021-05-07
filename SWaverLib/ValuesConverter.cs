@@ -98,6 +98,7 @@ namespace SWaverLib
         Degree,
         Percents,
         SiemensOnMeter,
+        MetersPerSecond,
         Other
     }
 }

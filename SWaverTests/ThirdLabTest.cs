@@ -25,7 +25,7 @@ namespace SWaverTests
         {
             var thirdLab = new ThirdLabCalculationObject(new Conductivity(conductivity), new ElectricalPermeability(permeability),
                 new WaveLength(waveLength), new Height(height1), new Height(height2), new ThetaDegrees(thetaDegrees),
-                new TraceLength(traceLength, MetricPrefixes.One));
+                new TraceLength(traceLength, MetricPrefixes.One), PolarizationType.Horizontal);
             var result = thirdLab.CalculateRelativeElectricalDensity();
             Assert.AreEqual(expected, Math.Floor(result.Value));
         }
@@ -42,10 +42,18 @@ namespace SWaverTests
         {
             var thirdLab = new ThirdLabCalculationObject(new Conductivity(conductivity), new ElectricalPermeability(permeability),
                 new WaveLength(waveLength), new Height(height1), new Height(height2), new ThetaDegrees(thetaDegrees),
-                new TraceLength(traceLength, MetricPrefixes.One));
+                new TraceLength(traceLength, MetricPrefixes.One), PolarizationType.Horizontal);
             var result = thirdLab.CalculateDirectionalFactor();
             var roundedResult = Math.Round(result.Value);
             Assert.AreEqual(expected, roundedResult);
+        }
+
+        [TestMethod]
+        [DataRow(30, 0.5)]
+        public void MathSin_Test(double angle, double expectedSin)
+        {
+            var sin = (Math.Sin(angle * Math.PI/180));
+            Assert.AreEqual(expectedSin, sin);
         }
     }
 }

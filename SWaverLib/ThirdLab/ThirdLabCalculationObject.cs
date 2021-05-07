@@ -16,7 +16,38 @@ namespace SWaverLib.ThirdLab
         private Height receiverHeight;
         private ThetaDegrees thetaDegrees;
         private TraceLength traceLength;
-        public ThirdLabCalculationObject(Conductivity conductivity, ElectricalPermeability electricalPermeability, WaveLength waveLength, Height transmitterHeight, Height receiverHeight, ThetaDegrees thetaDegrees, TraceLength traceLength)
+        private MaterialConductivityFactor materialConductivityFactor = MaterialConductivityFactor.Unknown;
+        public PolarizationType PolarizationType { get; set; }
+        public MaterialConductivityFactor MaterialConductivityFactor
+        {
+            get
+            {
+                var relevation = CalculateRelativeElectricalDensity();
+                if (relevation.Value >= 3)
+                {
+                    materialConductivityFactor = MaterialConductivityFactor.Dielectric;
+                }
+                else if (relevation.Value <= 0.3)
+                {
+                    materialConductivityFactor = MaterialConductivityFactor.Conductor;
+                }
+                else
+                {
+                    var frequency = new MathObject(ValuesConverter.SpeedOfLight, MetricPrefixes.One, UnitsOfMeasurement.MetersPerSecond) / waveLength;
+                    var borderFrequency = new MathObject(1.5, MetricPrefixes.M, UnitsOfMeasurement.Hertz);
+                    if (frequency < borderFrequency)
+                    {
+                        materialConductivityFactor = MaterialConductivityFactor.Conductor;
+                    }
+                    else
+                    {
+                        materialConductivityFactor = MaterialConductivityFactor.Dielectric;
+                    }
+                }
+                return materialConductivityFactor;
+            }
+        }
+        public ThirdLabCalculationObject(Conductivity conductivity, ElectricalPermeability electricalPermeability, WaveLength waveLength, Height transmitterHeight, Height receiverHeight, ThetaDegrees thetaDegrees, TraceLength traceLength, PolarizationType polarizationType)
         {
             this.conductivity = conductivity;
             this.electricalPermeability = electricalPermeability;
@@ -25,6 +56,7 @@ namespace SWaverLib.ThirdLab
             this.receiverHeight = receiverHeight;
             this.thetaDegrees = thetaDegrees;
             this.traceLength = traceLength;
+            this.PolarizationType = polarizationType;
         }
 
         public MathObject CalculateRelativeElectricalDensity()
@@ -42,5 +74,42 @@ namespace SWaverLib.ThirdLab
                                         UnitsOfMeasurement.Degree));
             return directionalFactor;
         }
+
+        public MathObject CalculateReflectionCoefficientByAngle(ThetaDegrees angle)
+        {
+            if (this.MaterialConductivityFactor == MaterialConductivityFactor.Conductor)
+            {
+                return CalculateReflectionCoefficientByAngleForConductor(angle);
+            }
+
+            return CalculateReflectionCoefficientByAngleForDielectric(angle);
+        }
+
+        private MathObject CalculateReflectionCoefficientByAngleForDielectric(ThetaDegrees angle)
+        {
+            if (this.PolarizationType == PolarizationType.Horizontal)
+            {
+                return null;
+            }
+
+            return null;
+        }
+        private MathObject CalculateReflectionCoefficientByAngleForConductor(ThetaDegrees angle)
+        {
+            return new MathObject(1, MetricPrefixes.One, UnitsOfMeasurement.Units);
+        }
+    }
+
+    public enum MaterialConductivityFactor
+    {
+        Unknown,
+        Dielectric,
+        Conductor
+    }
+
+    public enum PolarizationType
+    {
+        Vertical,
+        Horizontal
     }
 }
