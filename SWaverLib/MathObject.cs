@@ -22,6 +22,10 @@ namespace SWaverLib
             {
                 return value;
             }
+            set
+            {
+                this.value = value;
+            }
         }
         
         public MetricPrefixes Prefix

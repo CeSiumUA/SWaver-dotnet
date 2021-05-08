@@ -89,10 +89,15 @@ namespace SWaverLib.ThirdLab
         {
             if (this.PolarizationType == PolarizationType.Horizontal)
             {
-                return null;
+                var res = Math.Abs((Math.Sin(angle.Radians) - Math.Sqrt(this.electricalPermeability.Value -
+                                                                        Math.Pow(Math.Cos(angle.Radians), 2))) / (Math.Sin(angle.Radians) + Math.Sqrt(this.electricalPermeability.Value -
+                    Math.Pow(Math.Cos(angle.Radians), 2))));
+                return (MathObject) res;
             }
 
-            return null;
+            return (MathObject)Math.Abs((this.electricalPermeability * Math.Sin(angle.Radians) - Math.Sqrt(this.electricalPermeability.Value -
+                                                                     Math.Pow(Math.Cos(angle.Radians), 2))) / (this.electricalPermeability * Math.Sin(angle.Radians) + Math.Sqrt(this.electricalPermeability.Value -
+                Math.Pow(Math.Cos(angle.Radians), 2))));
         }
         private MathObject CalculateReflectionCoefficientByAngleForConductor(ThetaDegrees angle)
         {
