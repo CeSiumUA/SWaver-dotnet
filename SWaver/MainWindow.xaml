@@ -4,9 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWaver"
+        Name="mainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="416" Width="800" Loaded="mainWindow_Loaded">
     <Grid>
-
+        <Grid Name="canvasGrid" Margin="0,0,0,25">
+            <Canvas Name="canvasGraph"
+                    Background="White"
+                    Width="{Binding ActualWidth, ElementName=canvasGrid}"
+                    Height="{Binding ActualHeight, ElementName=canvasGrid}"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"></Canvas>
+        </Grid>
+        <Button VerticalAlignment="Bottom" Height="25" Content="Розрахувати" Click="Button_Click" />
     </Grid>
 </Window>
