@@ -14,6 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SWaver.Utils.Graph;
+using SWaverLib;
+using SWaverLib.SecondLab.BasicParameters;
+using SWaverLib.ThirdLab;
+using SWaverLib.Utils;
 
 namespace SWaver
 {
@@ -23,6 +27,7 @@ namespace SWaver
     public partial class MainWindow : Window
     {
         private LinearGraphUtility linearGraphUtility;
+        private ThirdLabCalculationObject thirdLabCalculationObject;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,18 +49,15 @@ namespace SWaver
             //polyline.Points = points;
 
             //canvasGraph.Children.Add(polyline);
-            
-        }
-
-        private void GetMatrixes()
-        {
-            Matrix realToDeviceMatrix = Matrix.Identity;
-
+            this.linearGraphUtility.Drawfunction(thirdLabCalculationObject.CalculateReflectionCoefficientByAngle);
         }
 
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.linearGraphUtility = new LinearGraphUtility(this.canvasGraph, Math.PI * 2, 1, 0.1, 0.01);
+            this.linearGraphUtility = new LinearGraphUtility(this.canvasGraph, Math.PI * 2, 1, Math.PI/12, 0.1);
+            this.thirdLabCalculationObject = new ThirdLabCalculationObject(new Conductivity(0.001), new ElectricalPermeability(25),
+                new WaveLength(20), new Height(150), new Height(150), new ThetaDegrees(90),
+                new TraceLength(1), PolarizationType.Horizontal);
             this.linearGraphUtility.DrawPlot();
         }
     }
