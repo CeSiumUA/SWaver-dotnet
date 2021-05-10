@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWaverLib", "SWaverLib\SWav
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWaver", "SWaver\SWaver.csproj", "{DE85F9FA-EA5D-4DC5-A212-1F351E89FD65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWaverTests", "SWaverTests\SWaverTests.csproj", "{F628A2EA-231F-4FD6-83C9-F8BB3300F078}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWaverTests", "SWaverTests\SWaverTests.csproj", "{F628A2EA-231F-4FD6-83C9-F8BB3300F078}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWaverWEB", "SWaverWEB\SWaverWEB.csproj", "{76B78B9D-1D38-4070-97AF-253F1AB71EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F628A2EA-231F-4FD6-83C9-F8BB3300F078}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F628A2EA-231F-4FD6-83C9-F8BB3300F078}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F628A2EA-231F-4FD6-83C9-F8BB3300F078}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B78B9D-1D38-4070-97AF-253F1AB71EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B78B9D-1D38-4070-97AF-253F1AB71EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B78B9D-1D38-4070-97AF-253F1AB71EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B78B9D-1D38-4070-97AF-253F1AB71EBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
