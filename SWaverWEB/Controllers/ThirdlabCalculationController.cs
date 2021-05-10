@@ -19,7 +19,7 @@ namespace SWaverWEB.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("GetGraphData")]
         public async Task<IActionResult> GetGraphData()
         {
             return new JsonResult(await service.GetPlotPointsAsync());

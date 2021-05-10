@@ -25,7 +25,7 @@ namespace SWaverWEB
             {
                 var y = this.thirdLabCalculationObject.CalculateReflectionCoefficientByAngle(new ThetaDegrees(0)
                     {Radians = x});
-                var calculatedPoint = new GraphPoint(x, y);
+                var calculatedPoint = new GraphPoint(x, Math.Round(y, 2));
                 points.Add(calculatedPoint);
             }
 
