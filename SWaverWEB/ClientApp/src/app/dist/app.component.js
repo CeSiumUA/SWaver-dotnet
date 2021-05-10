@@ -23,15 +23,7 @@ var AppComponent = /** @class */ (function () {
     }
     Object.defineProperty(AppComponent.prototype, "labels", {
         get: function () {
-            var pointsCollection = this.points.map(function (pnt) { return pnt.x.toString(); });
-            return pointsCollection;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(AppComponent.prototype, "datasets", {
-        get: function () {
-            var pointsCollection = [{ data: [1, 2, 3, 4, 5], label: 'test' }]; //[{data: this.points.map(pnt => pnt.y), label: 'Результуючий графік'}];
+            var pointsCollection = this.points.map(function (pnt) { return (Math.round(pnt.x * 10) / 10).toString(); });
             return pointsCollection;
         },
         enumerable: false,

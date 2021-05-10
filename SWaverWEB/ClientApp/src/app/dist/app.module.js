@@ -12,18 +12,24 @@ var platform_browser_1 = require("@angular/platform-browser");
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var http_1 = require("@angular/common/http");
+var animations_1 = require("@angular/platform-browser/animations");
+var app_material_module_1 = require("./app-material.module");
+var firstlab_component_1 = require("./labs/first/firstlab.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             declarations: [
-                app_component_1.AppComponent
+                app_component_1.AppComponent,
+                firstlab_component_1.FirstLabComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 http_1.HttpClientModule,
                 app_routing_module_1.AppRoutingModule,
+                animations_1.BrowserAnimationsModule,
+                app_material_module_1.AppMaterialModule
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent]

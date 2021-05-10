@@ -16,11 +16,7 @@ export class AppComponent implements OnInit {
   private baseUrl: string = '';
   private points: GraphPoint[] = [];
   public get labels(): string[]{
-    const pointsCollection = this.points.map(pnt => pnt.x.toString());
-    return pointsCollection;
-  }
-  public get datasets(): ChartDataset[]{
-    const pointsCollection = [{data: [1, 2, 3, 4, 5], label: 'test'}]; //[{data: this.points.map(pnt => pnt.y), label: 'Результуючий графік'}];
+    const pointsCollection = this.points.map(pnt => (Math.round(pnt.x * 10) /10).toString());
     return pointsCollection;
   }
   constructor(private httpClient: HttpClient, @Inject('BASE_URL') baseUrl: string){
