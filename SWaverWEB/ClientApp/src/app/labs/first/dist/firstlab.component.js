@@ -8,9 +8,76 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.FirstLabComponent = void 0;
 var core_1 = require("@angular/core");
+var values_1 = require("../../../math/values");
 var FirstLabComponent = /** @class */ (function () {
     function FirstLabComponent() {
+        this.isDistanceSetMode = true;
+        this.frequency = 50;
+        this.frequencyMap = 'M';
+        this.transmitterPower = 10;
+        this.transmitterPowerMap = 'One';
+        this.transmitterDirectionalFactor = 3;
+        this.transmitterSWR = 1.2;
+        this.receiverDirectionalFactor = 6;
+        this.receiverSWR = 1.5;
+        this.transmitterLinearAttenuation = 0.01;
+        this.transmitterAntennaLength = 25;
+        this.transmitterAntennaLengthMap = 'One';
+        this.receiverLinearAttenuation = 0.02;
+        this.receiverAntennaLength = 20;
+        this.receiverAntennaLengthMap = 'One';
+        this.distance = 10;
+        this.distanceMap = 'k';
+        this.receiverSensitivity = -40;
     }
+    Object.defineProperty(FirstLabComponent.prototype, "calcSetMode", {
+        get: function () {
+            return this.isDistanceSetMode ? 'Задання відстані' : 'Задання чутливості приймача';
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FirstLabComponent.prototype, "valuesMap", {
+        get: function () {
+            var valsmap = Object.keys(values_1.MetricPrefixes)
+                .filter(function (val) { return isNaN(Number(val)) === false; })
+                .map(function (key) { return values_1.MetricPrefixes[Number(key)]; });
+            return valsmap;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FirstLabComponent.prototype, "ReceiverInputPower", {
+        get: function () {
+            return 0;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FirstLabComponent.prototype, "TransmitterEfficiency", {
+        get: function () {
+            return 0;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FirstLabComponent.prototype, "EffectiveReceiverSquare", {
+        get: function () {
+            return 0;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FirstLabComponent.prototype, "ReceiverEfficiency", {
+        get: function () {
+            return 0;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    FirstLabComponent.prototype.showValue = function (val) {
+        return val.toString();
+    };
     FirstLabComponent.prototype.ngOnInit = function () {
     };
     FirstLabComponent = __decorate([

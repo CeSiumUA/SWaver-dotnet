@@ -17,7 +17,6 @@ var AppComponent = /** @class */ (function () {
         this.httpClient = httpClient;
         this.baseUrl = '';
         this.points = [];
-        this.lineChartType = 'line';
         chart_js_1.Chart.register.apply(chart_js_1.Chart, chart_js_1.registerables);
         this.baseUrl = baseUrl;
     }
@@ -55,12 +54,11 @@ var AppComponent = /** @class */ (function () {
         }
     };
     AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.httpClient.get(this.baseUrl + "thirdlabcalculation/getgraphdata")
-            .subscribe(function (result) {
-            _this.points = result;
-            _this.drawGraph();
-        });
+        /* this.httpClient.get(`${this.baseUrl}thirdlabcalculation/getgraphdata`)
+          .subscribe((result) => {
+            this.points = result as GraphPoint[];
+            this.drawGraph();
+          }); */
     };
     AppComponent = __decorate([
         core_1.Component({

@@ -52,23 +52,10 @@ export class AppComponent implements OnInit {
     }
   }
   ngOnInit(): void{
-    this.httpClient.get(`${this.baseUrl}thirdlabcalculation/getgraphdata`)
+    /* this.httpClient.get(`${this.baseUrl}thirdlabcalculation/getgraphdata`)
       .subscribe((result) => {
         this.points = result as GraphPoint[];
         this.drawGraph();
-      });
+      }); */
   }
-
-  public lineChartType: ChartType = 'line';
-  //public lineChartLegend = true;
-  /* public lineChartColors: Color[] = [
-    { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
-      borderColor: 'red',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ]; */
 }
