@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { utils } from 'protractor';
-import { MetricPrefixes, Utilities } from '../../../math/values';
+import { MetricPrefixes, Utilities, lightSpeed } from '../../../math/values';
+import { FirstLabCalculation } from '../../../math/firstLabFormulas';
 
 @Component({
     selector: 'firstlab-app',
@@ -49,16 +50,60 @@ export class FirstLabComponent implements OnInit{
         return valsmap;
     }
     public get ReceiverInputPower(): number{
-        return 0;
+        const frequencyCoefficient = Utilities.valuesMap.get(this.valuesMap.indexOf(this.frequencyMap));
+        const realFrequency = this.frequency * (frequencyCoefficient ? frequencyCoefficient : 1);
+        const waveLength = lightSpeed / realFrequency;
+
+        const powerCoefficient = Utilities.valuesMap.get(this.valuesMap.indexOf(this.transmitterPowerMap));
+        const realTransmitterPower = this.transmitterPower * (powerCoefficient ? powerCoefficient : 1);
+
+        const transmittingRangeCoefficient = Utilities.valuesMap.get(this.valuesMap.indexOf(this.distanceMap));
+        const realRange = this.distance * (transmittingRangeCoefficient ? transmittingRangeCoefficient : 1);
+
+        return FirstLabCalculation.CalculateReceiverInputPower(realTransmitterPower,
+            this.transmitterDirectionalFactor,
+            this.receiverDirectionalFactor,
+            this.TransmitterEfficiency,
+            this.ReceiverEfficiency,
+            waveLength,
+            realRange);
     }
     public get TransmitterEfficiency(): number{
-        return 0;
+        const prefix = this.valuesMap.indexOf(this.transmitterAntennaLengthMap);
+        const lengthValueCoefficient = Utilities.valuesMap.get(prefix);
+        const realLengthValue = this.transmitterAntennaLength * (lengthValueCoefficient ? lengthValueCoefficient : 1);
+        return FirstLabCalculation.CalculateEfficiency(this.transmitterLinearAttenuation, realLengthValue, this.transmitterSWR);
     }
     public get EffectiveReceiverSquare(): number{
-        return 0;
+        const frequencyCoefficient = Utilities.valuesMap.get(this.valuesMap.indexOf(this.frequencyMap));
+        const realFrequency = this.frequency * (frequencyCoefficient ? frequencyCoefficient : 1);
+        const waveLength = lightSpeed / realFrequency;
+
+        return FirstLabCalculation.CalculateEffectiveReceiverSquare(waveLength, this.receiverDirectionalFactor);
     }
     public get ReceiverEfficiency(): number{
-        return 0;
+        const prefix = this.valuesMap.indexOf(this.receiverAntennaLengthMap);
+        const lengthValueCoefficient = Utilities.valuesMap.get(prefix);
+        const realLengthValue = this.receiverAntennaLength * (lengthValueCoefficient ? lengthValueCoefficient : 1);
+        return FirstLabCalculation.CalculateEfficiency(this.receiverLinearAttenuation, realLengthValue, this.receiverSWR);
+    }
+    public get MaxTransmissionRange(): number{
+        const powerCoefficient = Utilities.valuesMap.get(this.valuesMap.indexOf(this.transmitterPowerMap));
+        const realTransmitterPower = this.transmitterPower * (powerCoefficient ? powerCoefficient : 1);
+
+        const frequencyCoefficient = Utilities.valuesMap.get(this.valuesMap.indexOf(this.frequencyMap));
+        const realFrequency = this.frequency * (frequencyCoefficient ? frequencyCoefficient : 1);
+        const waveLength = lightSpeed / realFrequency;
+
+        return FirstLabCalculation.CalculateRange(realTransmitterPower,
+             this.transmitterDirectionalFactor,
+              this.receiverDirectionalFactor,
+               this.TransmitterEfficiency,
+                this.ReceiverEfficiency,
+                    waveLength, this.receiverSensitivity);
+    }
+    public get ReceiverMinimalSensivity(): number{
+        return FirstLabCalculation.CalculateMinimalInputSensivity(this.ReceiverInputPower);
     }
     public showValue(val: number | string): string{
         return val.toString();

@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.FirstLabComponent = void 0;
 var core_1 = require("@angular/core");
 var values_1 = require("../../../math/values");
+var firstLabFormulas_1 = require("../../../math/firstLabFormulas");
 var FirstLabComponent = /** @class */ (function () {
     function FirstLabComponent() {
         this.isDistanceSetMode = true;
@@ -49,28 +50,63 @@ var FirstLabComponent = /** @class */ (function () {
     });
     Object.defineProperty(FirstLabComponent.prototype, "ReceiverInputPower", {
         get: function () {
-            return 0;
+            var frequencyCoefficient = values_1.Utilities.valuesMap.get(this.valuesMap.indexOf(this.frequencyMap));
+            var realFrequency = this.frequency * (frequencyCoefficient ? frequencyCoefficient : 1);
+            var waveLength = values_1.lightSpeed / realFrequency;
+            var powerCoefficient = values_1.Utilities.valuesMap.get(this.valuesMap.indexOf(this.transmitterPowerMap));
+            var realTransmitterPower = this.transmitterPower * (powerCoefficient ? powerCoefficient : 1);
+            var transmittingRangeCoefficient = values_1.Utilities.valuesMap.get(this.valuesMap.indexOf(this.distanceMap));
+            var realRange = this.distance * (transmittingRangeCoefficient ? transmittingRangeCoefficient : 1);
+            return firstLabFormulas_1.FirstLabCalculation.CalculateReceiverInputPower(realTransmitterPower, this.transmitterDirectionalFactor, this.receiverDirectionalFactor, this.TransmitterEfficiency, this.ReceiverEfficiency, waveLength, realRange);
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(FirstLabComponent.prototype, "TransmitterEfficiency", {
         get: function () {
-            return 0;
+            var prefix = this.valuesMap.indexOf(this.transmitterAntennaLengthMap);
+            var lengthValueCoefficient = values_1.Utilities.valuesMap.get(prefix);
+            var realLengthValue = this.transmitterAntennaLength * (lengthValueCoefficient ? lengthValueCoefficient : 1);
+            return firstLabFormulas_1.FirstLabCalculation.CalculateEfficiency(this.transmitterLinearAttenuation, realLengthValue, this.transmitterSWR);
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(FirstLabComponent.prototype, "EffectiveReceiverSquare", {
         get: function () {
-            return 0;
+            var frequencyCoefficient = values_1.Utilities.valuesMap.get(this.valuesMap.indexOf(this.frequencyMap));
+            var realFrequency = this.frequency * (frequencyCoefficient ? frequencyCoefficient : 1);
+            var waveLength = values_1.lightSpeed / realFrequency;
+            return firstLabFormulas_1.FirstLabCalculation.CalculateEffectiveReceiverSquare(waveLength, this.receiverDirectionalFactor);
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(FirstLabComponent.prototype, "ReceiverEfficiency", {
         get: function () {
-            return 0;
+            var prefix = this.valuesMap.indexOf(this.receiverAntennaLengthMap);
+            var lengthValueCoefficient = values_1.Utilities.valuesMap.get(prefix);
+            var realLengthValue = this.receiverAntennaLength * (lengthValueCoefficient ? lengthValueCoefficient : 1);
+            return firstLabFormulas_1.FirstLabCalculation.CalculateEfficiency(this.receiverLinearAttenuation, realLengthValue, this.receiverSWR);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FirstLabComponent.prototype, "MaxTransmissionRange", {
+        get: function () {
+            var powerCoefficient = values_1.Utilities.valuesMap.get(this.valuesMap.indexOf(this.transmitterPowerMap));
+            var realTransmitterPower = this.transmitterPower * (powerCoefficient ? powerCoefficient : 1);
+            var frequencyCoefficient = values_1.Utilities.valuesMap.get(this.valuesMap.indexOf(this.frequencyMap));
+            var realFrequency = this.frequency * (frequencyCoefficient ? frequencyCoefficient : 1);
+            var waveLength = values_1.lightSpeed / realFrequency;
+            return firstLabFormulas_1.FirstLabCalculation.CalculateRange(realTransmitterPower, this.transmitterDirectionalFactor, this.receiverDirectionalFactor, this.TransmitterEfficiency, this.ReceiverEfficiency, waveLength, this.receiverSensitivity);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FirstLabComponent.prototype, "ReceiverMinimalSensivity", {
+        get: function () {
+            return firstLabFormulas_1.FirstLabCalculation.CalculateMinimalInputSensivity(this.ReceiverInputPower);
         },
         enumerable: false,
         configurable: true

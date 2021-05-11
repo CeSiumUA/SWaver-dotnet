@@ -323,7 +323,7 @@
             <tr *ngIf="!isDistanceSetMode">
                 <td colspan="1">
                     <mat-form-field class="fullWidthField">
-                        <mat-label>Чутливість приймача в дБ/мВ</mat-label>
+                        <mat-label>Чутливість приймача в дБ/мВт</mat-label>
                         <input matInput type="number" [(ngModel)]="receiverSensitivity" value="0">
                     </mat-form-field>
                 </td>
@@ -347,9 +347,17 @@
         <mat-card-title>Результуючі значення</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <mat-form-field class="fullWidthField">
-            <mat-label>Потужність на вході приймача, дБ/мВт</mat-label>
+        <mat-form-field *ngIf="isDistanceSetMode" class="fullWidthField">
+            <mat-label>Потужність на вході приймача, Вт</mat-label>
             <input matInput readonly type="number" [value]="ReceiverInputPower">
+        </mat-form-field>
+        <mat-form-field *ngIf="isDistanceSetMode" class="fullWidthField">
+            <mat-label>Мінімальна чутливість приймача, дБ/мВт</mat-label>
+            <input matInput readonly type="number" [value]="ReceiverMinimalSensivity">
+        </mat-form-field>
+        <mat-form-field *ngIf="!isDistanceSetMode" class="fullWidthField">
+            <mat-label>Максимальна відстань зв'язку</mat-label>
+            <input matInput readonly type="number" [value]="MaxTransmissionRange">
         </mat-form-field>
         <br>
         <mat-form-field class="fullWidthField">
